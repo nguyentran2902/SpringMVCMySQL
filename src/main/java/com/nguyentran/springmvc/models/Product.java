@@ -1,5 +1,7 @@
 package com.nguyentran.springmvc.models;
 
+
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+
 
 @Entity 
 public class Product {
@@ -20,9 +27,16 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotNull(message="Name not be null")
 	private String name;
+	
 	private String description;
-	private float price;
+	
+	@NotNull(message="Price not be null")
+	@Min(value=0,message="Price must be a number greater than 0")
+	private Float price;
+	
+	private Date createDate;
 	
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
@@ -39,11 +53,12 @@ public class Product {
 		
 	}
 
-	public Product(String name, String description, float price) {
+	public Product(String name, String description, Float price,Date createDate) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.createDate = createDate;
 		
 	}
 
@@ -71,11 +86,11 @@ public class Product {
 		this.description = description;
 	}
 
-	public float getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
 
@@ -94,8 +109,15 @@ public class Product {
 
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date date) {
+		this.createDate = date;
 	}	
 	
-	
-	
+
 }

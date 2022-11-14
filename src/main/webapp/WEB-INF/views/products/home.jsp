@@ -2,6 +2,7 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head><%@ page isELIgnored="false" %>
@@ -38,6 +39,7 @@
        <th>Name</th>
        <th>Description</th>
        <th>Price</th>
+       <th>Create Date</th>
        <th>Category</th>
        <th>Tag</th>
          <th>Action</th>
@@ -49,6 +51,12 @@
         <td>${product.name}</td>
         <td>${product.description}</td>
         <td>${product.price}</td>
+        <fmt:formatDate var="dateString" pattern="dd/MM/yyyy"
+									value="${product.createDate}" />
+         <td>
+         ${dateString}
+         
+		</td>
         <td>${product.category.name}</td>
          <td>
          	<c:forEach var="tag" items="${product.tags}">
